@@ -4,14 +4,15 @@ const {
     scoreWritingIELTS
 } = require("../services/open-ai.service");
 
-const { processImageToBase64, isValidImageMimeType } = require("../utils/imageHandler");
+const { processImageToBase64, isValidImageMimeType } = require("../utils/handle-image");
 
 module.exports = {
     scoreWritingIELTS: asyncHandler(async (req, res) => {
         const body = {}
-        body.question = req.body.question;
-        body.answer = req.body.answer;
-        body.infoPrompt = req.body.infoPrompt;
+        console.log(req.body);
+        body.question = req.body?.question;
+        body.answer = req.body?.answer;
+        body.infoPrompt = req.body?.infoPrompt;
         if (req.file) {
             if (!isValidImageMimeType(req.file.mimetype)) {
                 return res.status(400).json({ error: "Invalid image format" });
